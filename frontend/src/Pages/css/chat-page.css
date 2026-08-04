@@ -1,0 +1,39 @@
+#chatPage {
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    height: 87vh;
+
+}
+
+#leftPanel {
+    width: 22%;
+    background-color: rgb(255, 237, 215);
+    overflow: auto;
+}
+
+#rightPanel {
+    width: 78%;
+    background-color: rgb(252, 217, 171);
+
+    #chatBoxHeading{
+        height: 10%;
+        display: flex;;
+        background-color: rgb(152, 252, 252);
+    }
+
+    #chatBox {
+        overflow: auto;
+        height: 80%;
+    }
+
+    #chatInput{
+        height:10%;
+        background-color: rgb(162, 248, 248);
+    }
+
+
+
+
+}

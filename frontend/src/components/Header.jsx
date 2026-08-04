@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { searchProfile } from "../utils/chat-page-methods";
+import "./css/Header.css"
 
 export default function Header() {
   const handleSearch = async (e)=>{
@@ -71,18 +72,6 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-
-          <form
-            className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
-            role="search"
-          >
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search..."
-              aria-label="Search"
-            />
-          </form>
 
           <div className="dropdown text-end">
             <Link
