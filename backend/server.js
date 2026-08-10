@@ -33,7 +33,7 @@ const io = new Server(server, {
 
 const activeUsers = new Map() // This is good, map is better than object
 
-app.use("/auth", authRoute.router)
+app.use("/auth", authRoute)
 app.use("/chat", chatRoute)
 
 

@@ -26,6 +26,7 @@
 .searchContainer {
   padding: 15px;
   border-bottom: 1px solid #ececec;
+  display: relative;
 }
 
 .searchInput {
@@ -36,6 +37,16 @@
   border-radius: 20px;
   background: #f0f2f5;
   font-size: 14px;
+}
+
+#searchResultList{
+  display: absolute;
+  top: 0px;
+  max-height: 30vh;
+  width: 100%;
+  padding: 10px;
+  overflow: auto;
+  z-index: 1;
 }
 
 .profileList {

@@ -34,12 +34,14 @@ export const searchProfile = async (profileName)=>{
                 }
             })
         if(result.status == 200){
-            console(result.data.message)
+            console.log(result.data.message)
+            console.log(result.data.resultList)
+
             return result.data.resultList
         }
         else{
             console.log(result.data.message)
-            return false
+            return [result.data.message]
         }
     } catch (error) {
         return false

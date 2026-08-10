@@ -8,7 +8,7 @@ let AuthVerification = ()=>{
        let result = await backendAuthAPI.post("/verify-me", {token})
         if(result.status === 200){
             alert(result.data.message)
-            location.href="/chat"
+            location.href="/"
         }
         else if(result.status){
             alert(result.data.message)

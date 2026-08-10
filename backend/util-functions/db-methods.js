@@ -5,7 +5,7 @@ const createUser = async (email, pass) => {
         let command = "INSERT INTO users(user_email, user_password) VALUES ($1, $2)"
         let parameters = [email, pass]
         let res = await pool.query(command, parameters)
-        console.log("New user added to db: ", res)
+        // console.log("New user added to db: ", res)
         return true
     } catch (error) {
         console.log("New user creation error in db : ", error)
@@ -31,7 +31,7 @@ const checkUserCredentials = async (email, pass) => {
         let command = "SELECT * FROM users WHERE user_email = $1 AND user_password = $2"
         let parameters = [email, pass]
         let res = await pool.query(command, parameters)
-        console.log(res)
+        // console.log(res)
         if (res.rowCount == 1) {
             return true
         }
@@ -79,7 +79,7 @@ const getAllUsersList = async () => {
         if(res.rowCount >= 1){
             users = res.rows.map(user=> user.user_email)
         }
-        console.log("users list fetched : ", users, res.rowCount)
+        // console.log("users list fetched : ", users, res.rowCount)
         return { users: users, count: res.rowCount }
     } catch (error) {
         console.log("users list fetch failed : ", error)

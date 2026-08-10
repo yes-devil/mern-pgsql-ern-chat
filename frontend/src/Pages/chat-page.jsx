@@ -3,15 +3,30 @@ import Header from "../components/Header";
 import { ContextBox, ChatBox } from "../utils/My-context";
 import socket from "../utils/socket";
 import { backendChatAPI } from "../utils/backend-api";
-import { fetchChatHistory } from "../utils/chat-page-methods";
+import { fetchChatHistory, searchProfile } from "../utils/chat-page-methods";
 import "./css/chat-page.css"
+import ResultList from "../components/ResultList";
 
 const ChatPage = () => {
     let [chatInput, setChatInput] = useState("")
     let contextBox = useContext(ContextBox)
+    let [searchList, setSearchList] = useState([])
     let [messages, setMessages] = useState([])
     let [profiles, setProfiles] = useState([])
+    let [searchInput, setSearchInput] = useState("")
     // console.log("form chat page: ",context)
+
+    const handleProfileSearch = async (e) => {
+        setSearchInput(e.target.value)
+        if (e.target.value.length > 2) {
+            console.log("calling search input fun for ", e.target.value)
+            let profilesList = await searchProfile(e.target.value)
+            setSearchList(profilesList)
+        }
+        else{
+            setSearchList([])
+        }
+    }
     const demoProfiles = [
         { id: 1, name: "John Doe", lastMessage: "Hey! How are you?" },
         { id: 2, name: "Emma Watson", lastMessage: "Let's meet tomorrow." },
@@ -20,18 +35,18 @@ const ChatPage = () => {
     ];
 
     const demoMessages = [
-        { id: 1, sender: "other", text: "Hello 👋" },
-        { id: 2, sender: "me", text: "Hi! How are you?" },
-        { id: 3, sender: "other", text: "I'm doing great." },
-        { id: 4, sender: "me", text: "Awesome 😄" },
+        // { id: 1, sender: "other", text: "Hello 👋" },
+        // { id: 2, sender: "me", text: "Hi! How are you?" },
+        // { id: 3, sender: "other", text: "I'm doing great." },
+        // { id: 4, sender: "me", text: "Awesome 😄" },
     ];
 
-    
+
     useEffect(() => {
 
 
-setMessages(demoMessages)
-    setProfiles(demoProfiles)
+        setMessages(demoMessages)
+        setProfiles(demoProfiles)
 
     }, [])
 
@@ -46,7 +61,14 @@ setMessages(demoMessages)
                             type="text"
                             placeholder="Search or start new chat"
                             className="searchInput"
+                            value={searchInput}
+                            onChange={(e) => { handleProfileSearch(e) }}
                         />
+                        <div id="searchResultList">
+                            {searchList.map((user, i)=>{
+                                    return <ResultList key={i} user={user} />
+                                })}
+                        </div>
                     </div>
 
                     <div className="profileList">

@@ -73,13 +73,13 @@ const verifyAccessToken = async (req, res, next) => {
             let refreshTokenDecoded = await verifyToken(refreshToken, REFRESH_SECRET)
             if(refreshTokenDecoded){
                 let newAccessToken = generateAccessToken(refreshTokenDecoded.email)
-                let refreshTokenOptions = {
-                    maxAge : 5*24*60*60*1000, //5days
-                    sameSite : true,
+                let accessTokenOptions = {
+                    maxAge : 30*60*1000, //30mins
+                    sameSite : "lax",
                     secure: false,
                     httpOnly: true
                 }
-                res.cookies("accessToken", newAccessToken, refreshTokenOptions)
+                res.cookies("accessToken", newAccessToken, accessTokenOptions)
                 req.user = refreshTokenDecoded.email
                 next()
             }

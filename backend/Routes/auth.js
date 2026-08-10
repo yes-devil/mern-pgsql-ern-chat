@@ -5,18 +5,7 @@ const jwtManager = require("../util-functions/jwt-manager")
 const { createUser, checkUserCredentials, getAllUsersList } = require("../util-functions/db-methods")
 const { removeTokenCookies } = require("../util-functions/cookies-manager")
 
-let allRegisteredUsers = []
-const setAllUsersList = async () => {
-    let allUsersList = await getAllUsersList()
-    if (allUsersList) {
-        if (allUsersList.count >= 1) {
-            allRegisteredUsers = allUsersList.users
-        }
-    }
-    // console.log("auth js has fetched suers list :  ", allRegisteredUsers)
-}
 
-setAllUsersList()
 
 
 router.get("/test", (req, res) => {
@@ -69,7 +58,7 @@ router.post("/log-in", removeTokenCookies, async (req, res) => {
         let newRefreshToken = await jwtManager.generateRefreshToken(email)
         if (newAccessToken && newRefreshToken) {
             let accessTokenOptions = {
-                maxAge: 30 * 60 * 1000, //15 minutes = 900000 milis
+                maxAge: 30 * 60 * 1000, //30 minutes = 900000 milis
                 // maxAge : 40*1000, //40sec for dev
                 sameSite: "lax",
                 secure: false,
@@ -99,4 +88,4 @@ router.delete("/log-out", removeTokenCookies, async (req, res) => {
     res.status(200).json({ message: "Logged out successfully." })
 })
 
-module.exports = {router, allRegisteredUsers}
+module.exports = router
