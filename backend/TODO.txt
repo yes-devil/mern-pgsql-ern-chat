@@ -1,0 +1,2 @@
+comment out the inner codes of send-email.js for email sending part only when you replace the production email instead of personal email. for now you just copy paste the verification link from the terminal log.
+
