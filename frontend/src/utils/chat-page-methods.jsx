@@ -51,6 +51,6 @@ export const searchProfile = async (profileName)=>{
 // export {fetchChatHistory}
 export const initiateChatPage = async ()=>{
     socket.connect()
-    let chatHistory = await fetchChatHistory()
+    
 
 }
