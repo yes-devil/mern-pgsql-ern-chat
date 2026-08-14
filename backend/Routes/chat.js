@@ -50,6 +50,10 @@ router.get("/search-profile", verifyAccessToken, async (req,res)=>{
     }
 })
 
+// router.get("/get-profiles", verifyAccessToken, async (req, res)=>{
+     
+// })
+
 
 
 module.exports = router

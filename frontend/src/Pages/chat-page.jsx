@@ -14,6 +14,7 @@ const ChatPage = () => {
     let [messages, setMessages] = useState([])
     let [profiles, setProfiles] = useState([])
     let [searchInput, setSearchInput] = useState("")
+    let [receiver, setReceiver] = useState("")
     // console.log("form chat page: ",context)
 
     const handleProfileSearch = async (e) => {
@@ -45,8 +46,8 @@ const ChatPage = () => {
     useEffect(() => {
 
 
-        setMessages(demoMessages)
-        setProfiles(demoProfiles)
+        // setMessages(demoMessages)
+        // setProfiles(demoProfiles)
 
     }, [])
 

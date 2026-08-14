@@ -87,6 +87,19 @@ const getAllUsersList = async () => {
     }
 }
 
+const getProfilesHistory = async (USER_ID)=>{
+    try{
+        let command = `SELECT DISTINCT sender, receiver FROM messages WHERE sender = ${USER_ID} OR receiver = ${USER_ID} ORDER BY sent_at DESC`
+        let result = await pool.query(command)
+        if(result){
+            console.log(result)
+        }
+    }
+    catch(error){
+        console.log("Error in getProfileHistory(): ", error)
+    }
+}
+
 // getAllUsersList()
 // createMessage("a@b.c", "c@b.a", "message 1")
 // createMessage("a@b.c", "c@b.a", "message 2")

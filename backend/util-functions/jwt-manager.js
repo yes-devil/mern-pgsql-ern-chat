@@ -50,7 +50,7 @@ const generateRefreshToken = async (email) => {
 }
 
 // verify token utitlity function that docodes on the basis of type given
-const verifyToken = async (token, secret)=>{
+const verifyToken = async (token, secret) => {
     try {
         let decoded = await jwt.verify(token, secret)
         return decoded
@@ -63,19 +63,19 @@ const verifyToken = async (token, secret)=>{
 // middle wares to verify jwt before access resources
 const verifyAccessToken = async (req, res, next) => {
     try {
-        let {accessToken, refreshToken} = req.cookies
+        let { accessToken, refreshToken } = req.cookies
         let accessTokenDecoded = await verifyToken(accessToken, ACCESS_SECRET)
-        if(accessTokenDecoded) {
+        if (accessTokenDecoded) {
             req.user = accessTokenDecoded.email
             next()
         }
-        else{
+        else {
             let refreshTokenDecoded = await verifyToken(refreshToken, REFRESH_SECRET)
-            if(refreshTokenDecoded){
+            if (refreshTokenDecoded) {
                 let newAccessToken = generateAccessToken(refreshTokenDecoded.email)
                 let accessTokenOptions = {
-                    maxAge : 30*60*1000, //30mins
-                    sameSite : "lax",
+                    maxAge: 30 * 60 * 1000, //30mins
+                    sameSite: "lax",
                     secure: false,
                     httpOnly: true
                 }
@@ -85,10 +85,25 @@ const verifyAccessToken = async (req, res, next) => {
             }
         }
     } catch (err) {
+        let { refreshToken } = req.cookies
+        let refreshTokenDecoded = await verifyToken(refreshToken, REFRESH_SECRET)
+        if (refreshTokenDecoded) {
+            let newAccessToken = await generateAccessToken(refreshTokenDecoded.email)
+            let accessTokenOptions = {
+                maxAge: 30 * 60 * 1000, //30mins
+                sameSite: "lax",
+                secure: false,
+                httpOnly: true
+            }
+            res.cookie("accessToken", newAccessToken, accessTokenOptions)
+            req.user = refreshTokenDecoded.email
+            next()
+        }
         console.log("token verification failed : ", err)
-        res.status(401).json({message: "Access denied. Go back to login."})
+        res.status(401).json({ message: "Access denied. Go back to login." })
     }
 }
+
 
 // middleware to run before Socket connection
 // const verifyAccessCookie = (token)=>{
@@ -96,22 +111,22 @@ const verifyAccessToken = async (req, res, next) => {
 //     try {
 //         let decoded = jwt.verify(token, ACCESS_SECRET)
 //         return decoded
-        
+
 //     } catch (error) {
 //         return false
-        
+
 //     }
 // }
 
-const verifyRefreshCookie= (token)=>{
-    if(!token) return false
+const verifyRefreshCookie = (token) => {
+    if (!token) return false
     try {
         let decoded = jwt.verify(token, REFRESH_SECRET)
         return decoded
-        
+
     } catch (error) {
         return false
-        
+
     }
 }
 

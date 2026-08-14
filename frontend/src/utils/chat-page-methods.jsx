@@ -26,6 +26,7 @@ export const fetchChatHistory = async ()=>{
 
 export const searchProfile = async (profileName)=>{
     try {
+        console.log("in api calling part: ", profileName)
         let result = await backendChatAPI.get(
             "/search-profile", 
             {
@@ -33,6 +34,7 @@ export const searchProfile = async (profileName)=>{
                     profile : profileName
                 }
             })
+            console.log("Result is ", result)
         if(result.status == 200){
             console.log(result.data.message)
             console.log(result.data.resultList)
@@ -48,9 +50,14 @@ export const searchProfile = async (profileName)=>{
     }
 }
 
-// export {fetchChatHistory}
-export const initiateChatPage = async ()=>{
-    socket.connect()
-    
+export const fetchAllProfiles = ()=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+}
 
+export const enableChat = async ()=>{
+    await socket.connect()
 }
