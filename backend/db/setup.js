@@ -2,7 +2,7 @@ const { Pool, Connection } = require("pg")
 require("dotenv").config()
 
 const pool = new Pool({
-    connectionString: process.env.COCKROACH_DB_STRING,
+    connectionString: process.env.NEON_DB_STRING,
     max: 30
 })
 
@@ -25,9 +25,9 @@ async function check_DB_connection(){
         let command = "SELECT 1"
         let res = await pool.query(command)
         // console.log(res)
-        console.log("cockroach db connected successfully")
+        console.log("Neon DB connected successfully")
     } catch (error) {
-        console.log("cockroach db connection failed : ", error)
+        console.log("Neon DB connection failed : ", error)
     }
 }
 
